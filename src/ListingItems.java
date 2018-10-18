@@ -120,6 +120,39 @@ public class ListingItems {
 		}
 		System.out.print("Your total is: $");
 		System.out.printf("%.2f", total);
+		System.out.println("");
+		System.out.println("most expensive item is " + getMostExpensiveItem(sc, items, total, allItems, prices));
+		System.out.println("most expensive item is " + getLeastExpensiveItem(sc, items, total, allItems, prices));
+	}
+
+	private static String getLeastExpensiveItem(Scanner sc, List<String> items, double total, Map<String, Integer> allItems, List<Double> prices) {
+		String min = "";
+		double minPrice = 11.00;
+		for (String key : allItems.keySet()) {
+		int pricePerUnitIndex = items.indexOf(key);
+		double pricePerUnit = prices.get(pricePerUnitIndex);
+	    
+	    if (pricePerUnit <= minPrice) {
+	    	minPrice = pricePerUnit;
+	    	min = key;
+	    }
+	}
+	return min;
+	}
+
+	private static String getMostExpensiveItem(Scanner sc, List<String> items, double total, Map<String, Integer> allItems, List<Double> prices) {
+		String max = "";
+		double maxPrice = 0;
+		for (String key : allItems.keySet()) {
+			int pricePerUnitIndex = items.indexOf(key);
+			double pricePerUnit = prices.get(pricePerUnitIndex);
+		    
+		    if (pricePerUnit>= maxPrice) {
+		    	maxPrice = pricePerUnit;
+		    	max = key;
+		    }
+		}
+		return max;
 	}
 
 	private static void displayItemsAndPrices(Scanner sc, List<String> items, List<Double> prices, double total, Map<String, Integer> allItems) {
