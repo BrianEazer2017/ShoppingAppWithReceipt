@@ -61,14 +61,27 @@ public class ListingItems {
 			System.out.println("I think you goofed");
 			getUserInputPurchase(sc, items, prices, total, allItems);
 		}
-		System.out.println(item + " costs " + prices.get(itemIndex));
+		System.out.print(item + " costs $");
+		System.out.printf("%.2f", prices.get(itemIndex));
+		System.out.println("");
 		total = calcTotal(sc, items, prices, item, total, itemIndex);
-		System.out.println("Your total is " + total);
-		System.out.println("Your cart contains: ");
 		allItems = keepTrackOfItems(sc, items, prices, item, allItems);
-		System.out.println(allItems);
+		System.out.print("Your total is $");
+		System.out.printf("%.2f", total);
+		System.out.println(".");
+		System.out.print("Your cart contains: ");
+		printCartContents(sc, items, prices, total, allItems);
 		System.out.println("What would you like to do next?");
 		getUserCommand(sc, items, prices, total, allItems);
+	}
+
+	private static void printCartContents(Scanner sc, List<String> items, List<Double> prices, double total, Map<String, Integer> allItems) {
+		// TODO Auto-generated method stub
+		for (String key : allItems.keySet()) {
+			System.out.print(allItems.get(key)+ " "); 
+			System.out.print(key + " ");
+		}
+		System.out.println("");
 	}
 
 	private static double calcTotal(Scanner sc, List<String> items, List<Double> prices, String item, double total, int itemIndex) {
@@ -96,23 +109,28 @@ public class ListingItems {
 			double pricePerUnit = prices.get(pricePerUnitIndex);
 			
 					
-		    System.out.printf("%-15s", key);
+		    System.out.printf("%-20s", key);
 		    Integer value = allItems.get(key);
 		    System.out.printf("%-20s", value);
-		    System.out.printf("%-20s", pricePerUnit);
-		    System.out.printf("%-20s", pricePerUnit * value);
+		    System.out.printf("%.2f", pricePerUnit);
+		    System.out.printf("%-16s", " ");
+		    System.out.printf("%.2f", pricePerUnit * value);
+		    System.out.printf("%-16s", " ");
 		    System.out.println("");
 		}
+		System.out.print("Your total is: $");
+		System.out.printf("%.2f", total);
 	}
 
 	private static void displayItemsAndPrices(Scanner sc, List<String> items, List<Double> prices, double total, Map<String, Integer> allItems) {
-		System.out.printf("%-20s", "Item");
+		System.out.printf("%-23s", "Items");
 		System.out.printf("%-20s", "Price");
 		System.out.println("");
 		System.out.println("============================");
 		for (int i = 0; i < items.size(); i++) {
 			System.out.printf(i + 1 + ". " + "%-20s", items.get(i));
-			System.out.printf("%-20s", "$" + prices.get(i));
+			System.out.print("$");
+			System.out.printf("%.2f", prices.get(i));
 			System.out.println("");
 	}
 		getUserCommand(sc, items, prices, total, allItems);
